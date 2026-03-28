@@ -5,7 +5,7 @@ $data = mysqli_query($koneksi,"SELECT * FROM siswa");
 ?>
 
 <table border="1" cellpadding="10" cellspacing="0" style="border-collapse: collapse; width: 100%; font-family: Arial, sans-serif;">
-    <thead style="background-color: #007bff; color: white;">
+    <thead style="background-color: #f877d1; color: white;">
         <tr>
             <th style="text-align: center;">Nis</th>
             <th style="text-align: center;">Id user</th>

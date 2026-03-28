@@ -5,9 +5,9 @@ $data = mysqli_query($koneksi,"SELECT * FROM guru");
 ?>
 
 <table border="1" cellpadding="10" cellspacing="0" style="border-collapse: collapse; width: 100%; font-family: Arial, sans-serif;">
-    <thead style="background-color: #007bff; color: white;">
+    <thead style="background-color: #f877d1; color: white;">
         <tr>
-            <th style="text-align: center;">Kode</th>
+            <th style="text-align: center;">Kode guru</th>
             <th style="text-align: center;">ID User</th>
             <th style="text-align: center;">Nama</th>
             <th style="text-align: center;">Jenis Kelamin</th>
