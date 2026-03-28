@@ -21,13 +21,13 @@ if(isset($_POST['simpan'])){
 
 <form method="POST" style="width: 500px; margin-top: 20px; font-family: Arial, sans-serif;">
     <label>Kode Guru:</label><br>
-    <input type="text" name="kd_guru" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc;"><br>
+    <input type="number" name="kd_guru" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc;" placeholder="Masukan Kode Guru"><br>
 
     <label>ID User:</label><br>
-    <input type="text" name="id_user" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc;"><br>
+    <input type="text" name="id_user" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc;" placeholder="Masukan ID User"><br>
 
     <label>Nama Guru:</label><br>
-    <input type="text" name="nama" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc;"><br>
+    <input type="text" name="nama" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc;" placeholder="Masukan Nama Guru"><br>
 
     <label>Jenis Kelamin:</label><br>
     <select name="jenkel" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc;">
@@ -37,13 +37,13 @@ if(isset($_POST['simpan'])){
     </select><br>
 
     <label>Pendidikan Terakhir:</label><br>
-    <input type="text" name="pendidikan" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc;"><br>
+    <input type="text" name="pendidikan" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc;" placeholder="Masukan Pendidikan Terakhir"><br>
 
     <label>HP:</label><br>
-    <input type="text" name="hp" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc;"><br>
+    <input type="number" name="hp" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc;" placeholder="Masukan Nomor HP"><br>
 
     <label>Alamat:</label><br>
-    <textarea name="alamat" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc;"></textarea><br>
+    <textarea name="alamat" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc;" placeholder="Masukan Alamat"></textarea><br>
 
     <button type="submit" name="simpan" style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Simpan</button>
     <a href="index.php?page=guru" style="padding: 10px 20px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 4px; margin-left: 10px;">Batal</a>
