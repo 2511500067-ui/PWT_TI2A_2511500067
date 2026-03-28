@@ -1,4 +1,5 @@
 <?php
+    ob_start();
     session_start();
     require_once ("config/koneksi.php");
     if(isset($_SESSION['username'])){
@@ -84,7 +85,7 @@ scratch. This page gets rid of all links and provides the needed markup only.
           <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
         </div>
         <div class="info">
-          <a href="#" class="d-block">Alexander Pierce</a>
+          <a href="#" class="d-block">Yozalia Ilmandra</a>
         </div>
       </div>
 
@@ -115,37 +116,39 @@ scratch. This page gets rid of all links and provides the needed markup only.
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="#" class="nav-link active">
+                <a href="index.php?page=mapel" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Mata Pelajaran</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="index.php?page=guru" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Guru</p>
                 </a>
-              </li>
-            </ul>
           </li>
-          <li class="nav-item menu-open">
-            <a href="#" class="nav-link active">
-              <i class="nav-icon fas fa-tachometer-alt"></i>
-              <p>Transaksi</p>
-                <i class="right fas fa-angle-left"></i>
-              </p>
+          <li class="nav-item">
+            <a href="index.php?page=jadwal_kelas" class="nav-link">
+              <i class="far fa-circle nav-icon"></i>
+              <p>Jadwal kelas</p>
             </a>
-            <ul class="nav nav-treeview">
+          </li>
               <li class="nav-item">
-                <a href="#" class="nav-link active">
+                <a href="index.php?page=detail_jadwal" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Jadwal</p>
+                  <p>Detail Jadwal</p>
                 </a>
               </li>
               <li class="nav-item">
-                <a href="#" class="nav-link">
+                <a href="index.php?page=kelas" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>
+                  <p>Kelas</p>
+                </a>
+              </li>
+              <li class="nav-item">
+                <a href="index.php?page=siswa" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Siswa</p>
                 </a>
               </li>
             </ul>
@@ -172,7 +175,27 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Starter Page</h1>
+            <h1 class="m-0">
+              <?php
+              $page = $_GET['page'] ?? '';
+
+              if ($page === 'guru') {
+                  echo "Data Guru";
+              } elseif ($page === 'jadwal_kelas') {
+                  echo "Data Jadwal Kelas";
+              } elseif ($page === 'kelas') {
+                  echo "Data Kelas";
+              } elseif ($page === 'siswa') {
+                  echo "Data Siswa";
+              } elseif ($page === 'mapel') {
+                  echo "Data Mata Pelajaran";
+              } elseif ($page === 'detail_jadwal') {
+                  echo "Data Detail Jadwal";
+              } else {
+                  echo "Home";
+              }
+              ?>
+               </h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -190,18 +213,37 @@ scratch. This page gets rid of all links and provides the needed markup only.
       <div class="container-fluid">
         <div class="row">
           <div class="col-lg-12">
-            <div class="card">
-              <div class="card-body">
-                <h5 class="card-title">Card title</h5>
+            <?php
+            $page = $_GET['page'] ?? '';
 
-                <p class="card-text">
-                   Selamat Datang di Sistem Jadwal Guru pada SMA/SMK XYZ
-                </p>
-
-              
-              </div>
-            </div>
-
+            if ($page === 'guru') {
+                include "guru/index.php";
+            } elseif ($page === 'tambah_guru') {
+                include "guru/tambah.php";
+            } elseif ($page === 'jadwal_kelas') {
+                include "jadwal_kelas/index.php";
+            } elseif ($page === 'tambah_jadwal_kelas') {
+                include "jadwal_kelas/tambah.php";
+            } elseif ($page === 'kelas') {
+                include "kelas/index.php";
+            } elseif ($page === 'tambah_kelas') {
+                include "kelas/tambah.php";
+            } elseif ($page === 'siswa') {
+                include "siswa/index.php";
+            } elseif ($page === 'tambah_siswa') {
+                include "siswa/tambah.php";
+            } elseif ($page === 'mapel') {
+                include "mapel/index.php";
+            } elseif ($page === 'tambah_mapel') {
+                include "mapel/tambah.php";
+            } elseif ($page === 'detail_jadwal') {
+                include "detail_jadwal/index.php";
+            } elseif ($page === 'tambah_detail_jadwal') {
+                include "detail_jadwal/tambah.php";
+            } else {
+                echo "<h2>Selamat Datang di Dashboard Admin</h2>";
+            }
+            ?>
           </div>
           <!-- /.col-md-6 -->
         </div>

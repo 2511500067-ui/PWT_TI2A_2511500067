@@ -1,5 +1,5 @@
 <?php
-include "../config/koneksi.php";
+include "config/koneksi.php";
 
 if(isset($_POST['simpan'])){
     mysqli_query($koneksi,"INSERT INTO guru VALUES(
@@ -12,7 +12,8 @@ if(isset($_POST['simpan'])){
         '$_POST[alamat]'
     )");
 
-    header("location:index.php");
+    header("location:index.php?page=guru");
+    exit;
 }
 ?>
 
@@ -45,5 +46,5 @@ if(isset($_POST['simpan'])){
     <textarea name="alamat" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc;"></textarea><br>
 
     <button type="submit" name="simpan" style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Simpan</button>
-    <a href="index.php" style="padding: 10px 20px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 4px; margin-left: 10px;">Batal</a>
+    <a href="index.php?page=guru" style="padding: 10px 20px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 4px; margin-left: 10px;">Batal</a>
 </form>
