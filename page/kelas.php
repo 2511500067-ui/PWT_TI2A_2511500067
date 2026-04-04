@@ -1,30 +1,64 @@
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Data Kelas</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php
-ob_start();
-include "config/koneksi.php";
-$data = mysqli_query($koneksi,"SELECT * FROM siswa");
+if (isset($_GET['action'])) {
+    if ($_GET['action'] == "hapus") {
+        $kd = $_GET['kd'];
+        $query = mysqli_query($koneksi, "DELETE FROM kelas WHERE Id_kelas='$kd'");
+        if ($query) {
+            echo '
+            <div class="alert alert-warning alert-dismissible">
+                Berhasil Di Hapus</div>';
+            echo '<meta http-equiv="refresh" content="1;url=index.php?page=kelas">';
+        }
+    }
+}
 ?>
 
-<table border="1" cellpadding="10" cellspacing="0" style="border-collapse: collapse; width: 100%; font-family: Arial, sans-serif;">
-    <thead style="background-color: #f877d1; color: white;">
-        <tr>
-            <th style="text-align: center;">Nis</th>
-            <th style="text-align: center;">Id user</th>
-            <th style="text-align: center;">Jenis Kelamin</th>
-            <th style="text-align: center;">Hp</th>
-            <th style="text-align: center;">Id kelas</th>
-        </tr>
-    </thead>
-    <tbody>
-    <?php while($d = mysqli_fetch_array($data)) { ?>
-        <tr style="text-align: center;">
-            <td><?= htmlspecialchars($d['Nis']); ?></td>
-            <td><?= htmlspecialchars($d['Id_user']); ?></td>
-            <td><?= htmlspecialchars($d['Jenkel']); ?></td>
-            <td><?= htmlspecialchars($d['Hp']); ?></td>
-            <td><?= htmlspecialchars($d['Id_kelas']); ?></td>
-        </tr>
-    <?php } ?>
-    </tbody>
-</table>
-
-<a href="index.php?page=tambah_siswa" style="display: inline-block; margin-bottom: 10px; padding: 6px 12px; background-color: #28a745; color: white; text-decoration: none; border-radius: 4px;">Tambah</a>
+<div class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <a href="index.php?page=tambah_kelas" class="btn btn-primary btn-sm">Tambah Kelas</a>
+                <table class="table table-striped">
+                    <tread>
+                        <tr>
+                            <th style="text-align: center;">No</th>
+                            <th style="text-align: center;">Id Kelas</th>
+                            <th style="text-align: center;">Nama Kelas</th>
+                            <th style="text-align: center;">Aksi</th>
+                        </tr>
+                    </tread>
+                    <?php
+                    $no = 0;
+                    $query = mysqli_query($koneksi, "SELECT * FROM kelas");
+                    while ($result = mysqli_fetch_array($query)) {
+                        $no++;
+                    ?>
+                        <tbody>
+                            <tr style="text-align: center;">
+                                <td><?= $no; ?></td>
+                                <td><?= $result['Id_kelas']; ?></td>
+                                <td><?= $result['Nm_kelas']; ?></td>
+                                <td>
+                                    <a href="index.php?page=kelas&action=hapus&kd=<?= $result['Id_kelas']; ?>" title ="">
+                                            <span class=" badge badge-danger">Hapus</span></a>
+                                    <a href="index.php?page=edit_kelas&kd=<?= $result['Id_kelas']; ?>" title="">
+                                        <span class="badge badge-warning">Edit</span></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    <?php } ?>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>

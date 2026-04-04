@@ -1,26 +1,66 @@
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Data Mata Pelajaran</h1>
+            </div>
+        </div>
+    </div>
+</div>
+
 <?php
-ob_start();
-include "config/koneksi.php";
-$data = mysqli_query($koneksi,"SELECT * FROM mapel");
+if (isset($_GET['action'])) {
+    if ($_GET['action'] == "hapus") {
+        $kd = $_GET['kd'];
+        $query = mysqli_query($koneksi, "DELETE FROM mapel WHERE Kd_mapel='$kd'");
+        if ($query) {
+            echo '
+            <div class="alert alert-warning alert-dismissible">
+                Berhasil Di Hapus</div>';
+            echo '<meta http-equiv="refresh" content="1;url=index.php?page=mapel">';
+        }
+    }
+}
 ?>
 
-<table border="1" cellpadding="10" cellspacing="0" style="border-collapse: collapse; width: 100%; font-family: Arial, sans-serif;">
-    <thead style="background-color: #f877d1; color: white;">
-        <tr>
-            <th style="text-align: center;">Kode mapel</th>
-            <th style="text-align: center;">Nama kelas</th>
-            <th style="text-align: center;">Kkm</th>
-        </tr>
-    </thead>
-    <tbody>
-    <?php while($d = mysqli_fetch_array($data)) { ?>
-        <tr style="text-align: center;">
-            <td><?= htmlspecialchars($d['Kd_mapel']); ?></td>
-            <td><?= htmlspecialchars($d['Nm_kelas']); ?></td>
-            <td><?= htmlspecialchars($d['Kkm']); ?></td>
-        </tr>
-    <?php } ?>
-    </tbody>
-</table>
-
-<a href="index.php?page=tambah_mapel" style="display: inline-block; margin-bottom: 10px; padding: 6px 12px; background-color: #28a745; color: white; text-decoration: none; border-radius: 4px;">Tambah</a>
+<div class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <a href="index.php?page=tambah_mapel" class="btn btn-primary btn-sm">Tambah Mapel</a>
+                <table class="table table-striped">
+                    <tread>
+                        <tr>
+                            <th style="text-align: center;">No</th>
+                            <th style="text-align: center;">Kode Mapel</th>
+                            <th style="text-align: center;">Nama Mapel</th>
+                            <th style="text-align: center;">Kkm</th>
+                            <th style="text-align: center;">Aksi</th>
+                        </tr>
+                    </tread>
+                    <?php
+                    $no = 0;
+                    $query = mysqli_query($koneksi, "SELECT * FROM mapel");
+                    while ($result = mysqli_fetch_array($query)) {
+                        $no++;
+                    ?>
+                        <tbody>
+                            <tr style="text-align: center;">
+                                <td><?= $no; ?></td>
+                                <td><?= $result['Kd_mapel']; ?></td>
+                                <td><?= $result['Nm_mapel']; ?></td>
+                                <td><?= $result['Kkm']; ?></td>
+                                <td>
+                                    <a href="index.php?page=mapel&action=hapus&kd=<?= $result['Kd_mapel']; ?>" title ="">
+                                            <span class=" badge badge-danger">Hapus</span></a>
+                                    <a href="index.php?page=edit_mapel&kd=<?= $result['Kd_mapel']; ?>" title="">
+                                        <span class="badge badge-warning">Edit</span></a>
+                                </td>
+                            </tr>
+                        </tbody>
+                    <?php } ?>
+                </table>
+            </div>
+        </div>
+    </div>
+</div><
