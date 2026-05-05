@@ -61,11 +61,21 @@ if (isset($_POST['tambah'])) {
                         </div>
                         <div class="form-group">
                             <label for="semester067">Semester067:</label>
-                            <input type="text" name="semester067" id="semester067" placeholder="Masukkan Semester" class="form-control">
+                          <select name="semester067" id="semester067" class="form-control">
+                                <option value="">Pilih Semester</option>
+                                <option value="Ganjil">Ganjil</option>
+                                <option value="Genap">Genap</option>
+                            </select>
                         </div>
                         <div class="form-group">
                             <label for="thn_ajaran067">Tahun Ajaran067:</label>
-                            <input type="text" name="thn_ajaran067" id="thn_ajaran067" placeholder="Masukkan Tahun Ajaran" class="form-control">
+                           <select name="thn_ajaran067" id="thn_ajaran067" class="form-control">
+                                <option value="">Pilih Tahun Ajaran</option>
+                                <option value="2020/2021">2020/2021</option>
+                                <option value="2021/2022">2021/2022</option>
+                                <option value="2022/2023">2022/2023</option>
+                                <option value="2023/2024">2023/2024</option>
+                            </select>
                         </div>
                         <div class="card-footer">
                             <input type="submit" name="tambah" class="btn btn-primary" value="Simpan">
