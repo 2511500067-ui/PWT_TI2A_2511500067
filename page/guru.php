@@ -1,3 +1,7 @@
+
+<?php
+include "config/koneksi.php";
+?>
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -33,7 +37,6 @@ if (isset($_GET['action'])) {
                         <tr>
                             <th style="text-align: center;">No</th>
                             <th style="text-align: center;">Kode Guru</th>
-                            <th style="text-align: center;">Id User</th>
                             <th style="text-align: center;">Nama Guru</th>
                             <th style="text-align: center;">Jenis Kelamin</th>
                             <th style="text-align: center;">Pendidikan Terakhir</th>
@@ -52,7 +55,6 @@ if (isset($_GET['action'])) {
                             <tr style="text-align: center;">
                                 <td><?= $no; ?></td>
                                 <td><?= $result['Kd_guru']; ?></td>
-                                <td><?= $result['Id_user']; ?></td>
                                 <td><?= $result['Nm_guru']; ?></td>
                                 <td><?= $result['Jenkel']; ?></td>
                                 <td><?= $result['Pend_terakhir']; ?></td>

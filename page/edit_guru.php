@@ -1,3 +1,7 @@
+
+<?php
+include "config/koneksi.php";
+?>
 <div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
@@ -14,14 +18,13 @@
 
     if(isset($_POST['tambah'])){
         $kd_guru = $_POST['kd_guru'];
-        $Id_user = $_POST['Id_user'];
         $Nm_guru = $_POST['Nm_guru'];
         $Jenkel = $_POST['Jenkel'];
         $Pend_terakhir = $_POST['Pend_terakhir'];
         $Hp = $_POST['Hp'];
         $Alamat = $_POST['Alamat'];
 
-        $insert = mysqli_query($koneksi, "UPDATE guru SET Id_user='$Id_user', Nm_guru='$Nm_guru', Jenkel='$Jenkel', Pend_terakhir='$Pend_terakhir', Hp='$Hp', Alamat='$Alamat' WHERE Kd_guru='$kd_guru'");
+        $insert = mysqli_query($koneksi, "UPDATE guru SET Nm_guru='$Nm_guru', Jenkel='$Jenkel', Pend_terakhir='$Pend_terakhir', Hp='$Hp', Alamat='$Alamat' WHERE Kd_guru='$kd_guru'");
         if ($insert) {
             echo '<div class="alert alert-info alert-dismissible">
             <button type="button" class="close" data-dismiss="alert" aria-hidden="true">X</button>
@@ -47,11 +50,7 @@
                         <div class="form-group
                         ">
                             <label for="Kd_guru">Kode Guru:</label>
-                            <input type="number" name="kd_guru" value="<?= $edit['Kd_guru']; ?>" placeholder="Masukkan Kode Guru" class="form-control" >
-                        </div>
-                        <div class="form-group">
-                            <label for="Id_user">Id User:</label>
-                            <input type="text" name="Id_user" id="Id_user" value="<?= $edit['Id_user']; ?>" placeholder="Masukkan Id User" class="form-control">    
+                            <input type="text" name="kd_guru" value="<?= $edit['Kd_guru']; ?>" placeholder="Masukkan Kode Guru" class="form-control" >
                         </div>
                         <div class="form-group">
                             <label for="Nm_guru">Nama Guru:</label>

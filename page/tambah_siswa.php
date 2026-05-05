@@ -1,42 +1,94 @@
+
 <?php
 include "config/koneksi.php";
+?>
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Tambah Data Siswa</h1>
+            </div>
+        </div>
+    </div>
+</div>
 
-if(isset($_POST['simpan'])){
-    mysqli_query($koneksi,"INSERT INTO siswa VALUES(
-        '$_POST[nis]',
-        '$_POST[id_user]',
-        '$_POST[jenkel]',
-        '$_POST[hp]',
-        '$_POST[id_kelas]'
-    )");
+<?php
+//kode otomatis
+$carikode = mysqli_query($koneksi, "SELECT MAX(Nis) FROM siswa") or die(mysqli_error($koneksi));
+$datakode = mysqli_fetch_array($carikode);
+if ($datakode) {
+    $nilaikode = substr($datakode[0], 2);
+    $kode = (int) $nilaikode;
+    $kode = $kode + 1;
+    $hasilkode = "M-" . str_pad($kode, 3, "0", STR_PAD_LEFT);
+} else {$hasilkode ="M-";}
+$_SESSION['KODE'] = $hasilkode;
 
-    header("location:index.php?page=siswa");
-    exit;
+if(isset($_POST['tambah'])){
+        $nis = $_POST['Nis'];
+        $id_user = $_POST['Id_user'];
+        $nm_siswa = $_POST['Nm_siswa'];
+        $jenkel = $_POST['Jenkel'];
+        $hp = $_POST['Hp'];
+        $id_kelas = $_POST['Id_kelas'];
+
+        $insert = mysqli_query($koneksi, "INSERT INTO siswa VALUES ('$nis', '$id_user', '$nm_siswa', '$jenkel', '$hp', '$id_kelas')");
+        if ($insert) {
+            echo '<div class="alert alert-info alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">X</button>
+            <h5><i class="icon fas fa-info"></i> Info</h5>
+            <h4>Berhasil Di Simpan</h4></div>';
+            echo '<meta http-equiv="refresh" content="1;url=index.php?page=siswa">';
+        } else {
+            echo '<div class="alert alert-warning alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">X</button>
+                <h5><i class="icon fas fa-info"></i> Info</h5>
+                <h4>Gagal Di Simpan</h4>
+            </div>';
+        }
 }
 ?>
-
-<h2 style="font-family: Arial, sans-serif; color: #007bff;">Tambah Data Siswa</h2>
-
-<form method="POST" style="width: 500px; margin-top: 20px; font-family: Arial, sans-serif;">
-    <label>Nis:</label><br>
-    <input type="number" name="nis" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc;" placeholder="Masukan Nis"><br>
-
-    <label>ID User:</label><br>
-    <input type="number" name="id_user" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc;" placeholder="Masukan ID User"><br>
-
-   <label>Jenis Kelamin:</label><br>
-    <select name="jenkel" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc;">
-        <option value="">--Pilih--</option>
-        <option value="L">Laki-laki</option>
-        <option value="P">Perempuan</option>
-    </select><br>
-
-    <label>HP:</label><br>
-    <input type="number" name="hp" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc;" placeholder="Masukan Nomor HP"><br>
-
-    <label>Id Kelas:</label><br>
-    <input type="number" name="id_kelas" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc;" placeholder="Masukan Id Kelas"><br>
-
-    <button type="submit" name="simpan" style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Simpan</button>
-    <a href="index.php?page=siswa" style="padding: 10px 20px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 4px; margin-left: 10px;">Batal</a>
-</form>
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-body p-2">
+                    <form method="POST" action="">
+                        <div class="form-group
+                        ">
+                            <label for="Nis">Nis:</label>
+                            <input type="number" name="Nis" id="Nis" placeholder="Masukkan Nis" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="Id_user">Id User:</label>
+                            <input type="text" name="Id_user" id="Id_user" placeholder="Masukkan Id User" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="Nm_siswa">Nama Siswa:</label>
+                            <input type="text" name="Nm_siswa" id="Nm_siswa" placeholder="Masukkan Nama Siswa" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="Jenkel">Jenis Kelamin:</label>
+                            <select name="Jenkel" id="Jenkel" class="form-control">
+                                <option value="">Pilih Jenis Kelamin</option>
+                                <option value="Laki-laki">Laki-laki</option>
+                                <option value="Perempuan">Perempuan</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="Hp">No HP:</label>
+                            <input type="number" name="Hp" id="Hp" placeholder="Masukkan No HP" class="form-control">
+                        </div>
+                        <div class="form-group">
+                            <label for="Id_kelas">Id Kelas:</label>
+                            <input type="text" name="Id_kelas" id="Id_kelas" placeholder="Masukkan Id Kelas" class="form-control">
+                        </div>
+                        <div class="card-footer">
+                            <input type="submit" name="tambah" class="btn btn-primary" value="Simpan">
+                            <a href="index.php?page=siswa" class="btn btn-danger">Batal</a>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>

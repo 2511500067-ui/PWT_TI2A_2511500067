@@ -1,4 +1,8 @@
-div class="content-header">
+
+<?php
+include "config/koneksi.php";
+?>
+<div class="content-header">
     <div class="container-fluid">
         <div class="row mb-2">
             <div class="col-sm-6">
@@ -12,7 +16,7 @@ div class="content-header">
 if (isset($_GET['action'])) {
     if ($_GET['action'] == "hapus") {
         $kd = $_GET['kd'];
-        $query = mysqli_query($koneksi, "DELETE FROM jadwal_Kelas WHERE Id_jadwal='$Id'");
+        $query = mysqli_query($koneksi, "DELETE FROM jadwal_Kelas WHERE Id_jadwal='$kd'");
         if ($query) {
             echo '
             <div class="alert alert-warning alert-dismissible">

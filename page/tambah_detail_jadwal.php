@@ -1,50 +1,91 @@
+
 <?php
 include "config/koneksi.php";
+?>
+<div class="content-header">
+    <div class="container-fluid">
+        <div class="row mb-2">
+            <div class="col-sm-6">
+                <h1 class="m-0 text-dark">Tambah Data Detail Jadwal</h1>
+            </div>
+        </div>
+    </div>
+</div>
 
-if (isset($_POST['simpan'])) {
-    mysqli_query($koneksi, "INSERT INTO detail_jadwal VALUES(
-        '$_POST[id_jadwal]',
-        '$_POST[kd_mapel]',
-        '$_POST[kd_guru]',
-        '$_POST[Hari]',
-        '$_POST[Jam_mulai]',
-        '$_POST[Jam_selesai]'
-    )");
+<?php
 
-    header("location:index.php?page=detail_jadwal");
-    exit;
+if (isset($_POST['tambah'])) {
+    $Id_jadwal = $_POST['Id_jadwal'];
+    $Kd_mapel = $_POST['Kd_mapel'];
+    $Kd_guru = $_POST['Kd_guru'];
+    $Hari = $_POST['Hari'];
+    $Jam_mulai = $_POST['Jam_mulai'];
+    $Jam_selesai = $_POST['Jam_selesai'];
+
+    $insert = mysqli_query($koneksi, "INSERT INTO detail_jadwal(Id_jadwal, Kd_mapel, Kd_guru, Hari, Jam_mulai, Jam_selesai)
+    VALUES ('$Id_jadwal', '$Kd_mapel', '$Kd_guru', '$Hari', '$Jam_mulai', '$Jam_selesai')")
+        or die(mysqli_error($koneksi));
+    if ($insert) {
+        echo '<div class="alert alert-info alert-dismissible">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">X</button>
+            <h5><i class="icon fas fa-info"></i> Info</h5>
+            <h4>Berhasil Di Simpan</h4></div>';
+        echo '<meta http-equiv="refresh" content="1;url=index.php?page=detail_jadwal">';
+    } else {
+        echo '<div class="alert alert-warning alert-dismissible">
+                <button type="button" class="close" data-dismiss="alert" aria-hidden="true">X</button>
+                <h5><i class="icon fas fa-info"></i> Info</h5>
+                <h4>Gagal Di Simpan</h4>
+            </div>';
+    }
 }
 ?>
-
-<h2 style="font-family: Arial, sans-serif; color: #007bff;">Tambah Data Detail Jadwal</h2>
-
-<form method="POST" style="width: 500px; margin-top: 20px; font-family: Arial, sans-serif;">
-    <label>ID Jadwal:</label><br>
-    <input type="number" name="id_jadwal" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc;" placeholder="Masukan Id Jadwal"><br>
-
-    <label>Kode Mata Pelajaran:</label><br>
-    <input type="number" name="kd_mapel" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc;" placeholder="Masukan Kode Mata Pelajaran"><br>
-
-    <label>Kode Guru:</label><br>
-    <input type="number" name="kd_guru" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc;" placeholder="Masukan Kode Guru"><br>
-
-    <label>Hari:</label><br>
-    <select name="hari" style="width: 100%; padding: 8px; margin-bottom: 10px;">
-        <option value="">-- Pilih Hari --</option>
-        <option value="Senin">Senin</option>
-        <option value="Selasa">Selasa</option>
-        <option value="Rabu">Rabu</option>
-        <option value="Kamis">Kamis</option>
-        <option value="Jumat">Jumat</option>
-        <option value="Sabtu">Sabtu</option>
-        <option value="Minggu">Minggu</option>
-    </select>
-    <label>Jam Mulai:</label><br>
-    <input type="time" name="Jam_mulai" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc;"><br>
-
-    <label>Jam Selesai:</label><br>
-    <input type="time" name="Jam_selesai" style="width: 100%; padding: 8px; margin-bottom: 10px; border-radius: 4px; border: 1px solid #ccc;"><br>
-
-    <button type="submit" name="simpan" style="padding: 10px 20px; background-color: #28a745; color: white; border: none; border-radius: 4px; cursor: pointer;">Simpan</button>
-    <a href="index.php?page=detail_jadwal" style="padding: 10px 20px; background-color: #dc3545; color: white; text-decoration: none; border-radius: 4px; margin-left: 10px;">Batal</a>
-</form>
+<section class="content">
+    <div class="container-fluid">
+        <div class="card">
+            <div class="card-body">
+                <div class="card-body p-2">
+                    <form method="POST" action="">
+                    </form>
+                    <div class="form-group
+                        ">
+                        <label for="Id_jadwal">Id Jadwal:</label>
+                        <input type="text" name="Id_jadwal" placeholder="Masukkan Id Jadwal" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="Kd_mapel">Kode Mapel:</label>
+                        <input type="text" name="Kd_mapel" id="Kd_mapel" placeholder="Masukkan Kode Mapel" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="Kd_guru">Kode Guru:</label>
+                        <select name="Kd_guru" id="Kd_guru" class="form-control">
+                            <option value="">-- Pilih Guru --</option>
+                            <?php
+                            $data = mysqli_query($koneksi, "SELECT * FROM guru");
+                            while ($d = mysqli_fetch_array($data)) {
+                                echo "<option value='" . $d['Kd_guru'] . "'>" . $d['Nama_guru'] . "</option>";
+                            }
+                            ?>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="Hari">Hari:</label>
+                        <input type="text" name="Hari" id="Hari" placeholder="Masukkan Hari" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="Jam_mulai">Jam Mulai:</label>
+                        <input type="time" name="Jam_mulai" id="Jam_mulai" placeholder="Masukkan Jam Mulai" class="form-control">
+                    </div>
+                    <div class="form-group">
+                        <label for="Jam_selesai">Jam Selesai:</label>
+                        <input type="time" name="Jam_selesai" id="Jam_selesai" placeholder="Masukkan Jam Selesai" class="form-control">
+                    </div>
+                    <div class="card-footer">
+                        <input type="submit" name="tambah" class="btn btn-primary" value="Simpan">
+                        <a href="index.php?page=detail_jadwal" class="btn btn-danger">Batal</a>
+                    </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
